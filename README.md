@@ -4,10 +4,22 @@
 
 ## 常用命令
 
+新建文章：
+
+```bash
+npm run new -- "文章标题"
+```
+
 构建：
 
 ```bash
 npm run build
+```
+
+一键发布：
+
+```bash
+npm run publish -- "Update blog"
 ```
 
 本地预览：
@@ -29,6 +41,24 @@ description: 文章摘要
 
 正文内容。
 ```
+
+## 一键发布流程
+
+日常写博客可以这样做：
+
+```bash
+cd /home/dev/blog
+npm run new -- "我的新文章"
+nano content/posts/2026-07-03-我的新文章.md
+npm run publish -- "Add new post"
+```
+
+`npm run publish` 会自动执行：
+
+1. 生成 `public` 静态网页
+2. 提交博客源码和静态产物
+3. 推送到 GitHub
+4. 触发 GitHub Pages 自动更新
 
 ## 部署文档
 
