@@ -28,6 +28,12 @@ npm run publish -- "Update blog"
 PORT=3000 npm run serve
 ```
 
+在线后台：
+
+```text
+https://belfast-byte.github.io/blog/admin/
+```
+
 ## 写文章
 
 在 `content/posts` 新增 Markdown 文件，格式如下：
@@ -66,3 +72,4 @@ npm run publish -- "Add new post"
 - 过程和踩坑：`docs/deploy-log.md`
 - GitHub 托管：`docs/github-hosting.md`
 - Cloudflare 托管：`docs/cloudflare-hosting.md`
+- 在线 CMS 后台：`docs/cms-hosting.md`

@@ -1,9 +1,10 @@
-import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
 const postsDir = path.join(root, "content", "posts");
 const publicDir = path.join(root, "public");
+const staticDir = path.join(root, "static");
 const basePath = normalizeBasePath(process.env.BASE_PATH || "/");
 
 function normalizeBasePath(value) {
@@ -27,6 +28,28 @@ function escapeHtml(value) {
 
 function slugify(fileName) {
   return fileName.replace(/\.md$/i, "");
+}
+
+async function copyStaticFiles(sourceDir, targetDir) {
+  try {
+    const entries = await readdir(sourceDir, { withFileTypes: true });
+    await mkdir(targetDir, { recursive: true });
+
+    for (const entry of entries) {
+      const sourcePath = path.join(sourceDir, entry.name);
+      const targetPath = path.join(targetDir, entry.name);
+
+      if (entry.isDirectory()) {
+        await copyStaticFiles(sourcePath, targetPath);
+      } else if (entry.isFile()) {
+        await copyFile(sourcePath, targetPath);
+      }
+    }
+  } catch (error) {
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+  }
 }
 
 function parseFrontMatter(source, fileName) {
@@ -191,6 +214,8 @@ async function main() {
     path.join(publicDir, ".nojekyll"),
     ""
   );
+
+  await copyStaticFiles(staticDir, publicDir);
 
   await writeFile(
     path.join(publicDir, "assets", "styles.css"),
