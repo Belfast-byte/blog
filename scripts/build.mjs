@@ -123,6 +123,7 @@ function layout({ title, description, body }) {
   <meta name="description" content="${escapeHtml(description)}">
   <title>${escapeHtml(title)}</title>
   <link rel="stylesheet" href="${assetPath("/assets/styles.css")}">
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -136,6 +137,19 @@ function layout({ title, description, body }) {
     ${body}
   </main>
   <footer class="site-footer">Built as a static blog.</footer>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        const hasIdentityToken = /(?:invite_token|confirmation_token|recovery_token|email_change_token)=/.test(window.location.hash);
+        if (!user && hasIdentityToken) {
+          window.netlifyIdentity.open();
+        }
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "${assetPath("/admin/")}";
+        });
+      });
+    }
+  </script>
 </body>
 </html>`;
 }
