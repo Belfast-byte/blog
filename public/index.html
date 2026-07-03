@@ -3,18 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A premium technical journal for backend architecture, caching strategy, and production systems design.">
+  <meta name="description" content="A clean technical journal for backend architecture, caching strategy, AI agents, and production-minded software design.">
   <title>Cache Atlas</title>
-  <!-- Editorial type stack: Lora for headings, Inter for body, JetBrains Mono for code. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body class="home-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
-  <!-- Sticky frosted navigation keeps the editorial frame visible while reading. -->
   <div class="nav-shell">
     <a class="brand" href="/" aria-label="Cache Atlas home">
       <span class="brand-mark" aria-hidden="true">CA</span>
@@ -22,8 +20,8 @@
     </a>
     <nav class="site-nav" aria-label="Primary navigation">
       <a href="/">Home</a>
+      <a href="/archive.html">Articles</a>
       <a href="/#projects">Projects</a>
-      <a href="/#articles">Articles</a>
       <a href="/#about">About</a>
     </nav>
   </div>
@@ -31,55 +29,48 @@
   <main id="main-content">
     <section class="hero" aria-labelledby="hero-title">
   <div class="hero-copy">
-    <p class="eyebrow">Backend Architecture Journal</p>
-    <h1 id="hero-title">Elegant notes for systems that must stay fast.</h1>
-    <p>Cache Atlas is a light-theme technical blog for engineers who care about latency, readable code, and operational clarity.</p>
+    <p class="eyebrow">Software engineering student and backend developer</p>
+    <h1 id="hero-title">Clean notes on code, systems, and the path to better software.</h1>
+    <p>I write about the parts of software that become easier only after they are explained clearly: data flow, cache behavior, readable backend code, and the tradeoffs behind practical systems.</p>
     <div class="hero-actions" aria-label="Primary actions">
-      <a class="button button-primary" href="/posts/backend-architecture-caching.html">Read the latest essay</a>
-      <a class="button button-secondary" href="#projects">View projects</a>
+      <a class="button button-primary" href="/archive.html">Read articles</a>
+      <a class="button button-secondary" href="/#projects">View projects</a>
     </div>
   </div>
-  <!-- Signature element: a quiet cache-flow map that turns backend architecture into an editorial motif. -->
-  <aside class="system-map" aria-label="Cache strategy map">
-    <div class="map-header">
-      <span>request path</span>
-      <strong>Cache-aside flow</strong>
-    </div>
-    <ol>
-      <li>
-        <span>01</span>
-        <div>
-          <strong>Edge lookup</strong>
-          <small>short TTL, stale-while-revalidate</small>
-        </div>
-      </li>
-      <li>
-        <span>02</span>
-        <div>
-          <strong>Service cache</strong>
-          <small>Redis hash by bounded aggregate</small>
-        </div>
-      </li>
-      <li>
-        <span>03</span>
-        <div>
-          <strong>Source of truth</strong>
-          <small>indexed read model with explicit invalidation</small>
-        </div>
-      </li>
-    </ol>
-  </aside>
+  <aside class="focus-panel" aria-label="Current technical focus">
+  <div class="focus-panel-header">
+    <span>Current focus</span>
+    <strong>Build notes</strong>
+  </div>
+  <ul>
+    <li>Backend Architecture</li>
+    <li>Java &amp; Spring Boot</li>
+    <li>Redis Caching</li>
+    <li>AI Text Analysis</li>
+  </ul>
+  <div class="focus-terminal" aria-hidden="true">
+    <span>$ npm run build</span>
+    <strong>static pages ready</strong>
+  </div>
+</aside>
+</section>
+
+<section class="intro-band" id="about" aria-labelledby="about-title">
+  <p class="eyebrow">About</p>
+  <h2 id="about-title">Belfast Byte</h2>
+  <p>A clean technical journal for backend architecture, caching strategy, AI agents, and production-minded software design.</p>
 </section>
 
 <section class="section article-section" id="articles" aria-labelledby="articles-title">
   <div class="section-header">
     <p class="eyebrow">Articles</p>
-    <h2 id="articles-title">Architecture essays with production bias.</h2>
+    <h2 id="articles-title">Recent technical writing.</h2>
+    <a class="section-link" href="/archive.html">All articles</a>
   </div>
   <div class="post-grid">
     <article class="post-card post-card-featured">
   <div class="card-kicker">
-    <time datetime="2026-07-03">July 3, 2026</time>
+    <time datetime="2026-07-03">Jul 3, 2026</time>
     <span>2 min read</span>
   </div>
   <h3><a href="/posts/backend-architecture-caching.html">Optimizing Backend Architecture and Caching Strategies</a></h3>
@@ -98,16 +89,17 @@
 <section class="section" id="projects" aria-labelledby="projects-title">
   <div class="section-header">
     <p class="eyebrow">Projects</p>
-    <h2 id="projects-title">Selected systems and experiments.</h2>
+    <h2 id="projects-title">Small systems with clear boundaries.</h2>
   </div>
   <div class="project-grid">
     <article class="project-card">
   <div class="project-visual project-visual-library" role="img" aria-label="Catalog dashboard preview for the library management system">
     <span class="visual-line"></span>
     <span class="visual-line"></span>
-    <span class="visual-chip">Spring Boot</span>
+    <span class="visual-chip">Case study</span>
   </div>
   <div class="project-content">
+    <p class="project-status">Case study</p>
     <h3>Library Management System</h3>
     <p>A role-aware catalog and circulation platform with reservation queues, audit trails, and resilient search.</p>
     <ul class="tag-list project-tags" aria-label="Tags">
@@ -121,9 +113,10 @@
   <div class="project-visual project-visual-agent" role="img" aria-label="Analysis pipeline preview for the AI text analysis agent">
     <span class="visual-line"></span>
     <span class="visual-line"></span>
-    <span class="visual-chip">LLM Agent</span>
+    <span class="visual-chip">Prototype</span>
   </div>
   <div class="project-content">
+    <p class="project-status">Prototype</p>
     <h3>AI Text Analysis Agent</h3>
     <p>A lightweight agent that classifies documents, extracts entities, and produces review-ready summaries.</p>
     <ul class="tag-list project-tags" aria-label="Tags">
@@ -136,18 +129,34 @@
   </div>
 </section>
 
-<section class="about-band" id="about" aria-labelledby="about-title">
-  <p class="eyebrow">About</p>
-  <h2 id="about-title">Written for builders who debug from first principles.</h2>
-  <p>The blog keeps a narrow editorial lane: backend architecture, caching decisions, code that reads cleanly under pressure, and the operational tradeoffs that shape real systems.</p>
+<section class="section updates-section" id="updates" aria-labelledby="updates-title">
+  <div class="section-header">
+    <p class="eyebrow">Updates</p>
+    <h2 id="updates-title">Recently changed.</h2>
+  </div>
+  <ol class="updates-list">
+    <li>
+  <span>Latest article</span>
+  <strong>Optimizing Backend Architecture and Caching Strategies</strong>
+  <p>Cache-aside patterns, fallback queries, and bounded invalidation.</p>
+</li>
+    <li>
+  <span>Project note</span>
+  <strong>Library Management System</strong>
+  <p>Refining Redis-backed catalog views and circulation workflows.</p>
+</li>
+    <li>
+  <span>Current focus</span>
+  <strong>AI Text Analysis Agent</strong>
+  <p>Improving entity extraction prompts and review summaries.</p>
+</li>
+  </ol>
 </section>
   </main>
   <footer class="site-footer">
-    <p>Cache Atlas publishes field notes on backend systems, cache behavior, and durable product engineering.</p>
+    <p>Cache Atlas is a personal notebook for backend systems, technical writing, and useful software projects.</p>
   </footer>
   <script>
-    // Load Netlify Identity on public pages only for invite/confirmation links.
-    // Normal readers should never be redirected into the CMS login flow.
     (() => {
       const hasIdentityToken = /(?:invite_token|confirmation_token|recovery_token|email_change_token)=/.test(window.location.hash);
       if (!hasIdentityToken) return;
@@ -164,7 +173,6 @@
       document.head.appendChild(script);
     })();
 
-    // Copy buttons are intentionally tiny: useful for code-heavy posts without turning the blog into an app.
     document.querySelectorAll(".copy-button").forEach((button) => {
       button.addEventListener("click", async () => {
         const code = button.closest(".code-window")?.querySelector("code")?.textContent || "";

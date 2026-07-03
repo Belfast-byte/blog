@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A practical guide to using cache-aside patterns, read models, and bounded invalidation without hiding system complexity.">
   <title>Optimizing Backend Architecture and Caching Strategies - Cache Atlas</title>
-  <!-- Editorial type stack: Lora for headings, Inter for body, JetBrains Mono for code. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body class="article-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
-  <!-- Sticky frosted navigation keeps the editorial frame visible while reading. -->
   <div class="nav-shell">
     <a class="brand" href="/" aria-label="Cache Atlas home">
       <span class="brand-mark" aria-hidden="true">CA</span>
@@ -22,8 +20,8 @@
     </a>
     <nav class="site-nav" aria-label="Primary navigation">
       <a href="/">Home</a>
+      <a href="/archive.html">Articles</a>
       <a href="/#projects">Projects</a>
-      <a href="/#articles">Articles</a>
       <a href="/#about">About</a>
     </nav>
   </div>
@@ -31,10 +29,10 @@
   <main id="main-content">
     <article class="article-shell">
   <header class="article-hero">
-    <p class="eyebrow">Architecture Essay</p>
+    <p class="eyebrow">Technical article</p>
     <h1>Optimizing Backend Architecture and Caching Strategies</h1>
     <div class="article-meta" aria-label="Article metadata">
-  <span><time datetime="2026-07-03">July 3, 2026</time></span>
+  <span><time datetime="2026-07-03">Jul 3, 2026</time></span>
   <span>2 min read</span>
   <span>Spring Boot</span>
   <span>Redis</span>
@@ -43,15 +41,24 @@
 </div>
     <p class="article-deck">A practical guide to using cache-aside patterns, read models, and bounded invalidation without hiding system complexity.</p>
   </header>
-  <!-- The body wrapper scopes readable measure, drop caps, code windows, and blockquotes. -->
-  <div class="post-body">
-    <p>Backend optimization starts long before a cache is introduced. The best systems make the slow path explicit, keep ownership of data close to the service that changes it, and treat every shortcut as a contract that must be measured in production.</p>
-<h2>Start with the read path</h2>
+  <div class="article-layout">
+    <aside class="toc" aria-label="Table of contents">
+  <p>On this page</p>
+  <ol>
+    <li class="toc-level-2"><a href="#start-with-the-read-path">Start with the read path</a></li>
+    <li class="toc-level-2"><a href="#use-cache-aside-for-explicit-control">Use cache-aside for explicit control</a></li>
+    <li class="toc-level-2"><a href="#design-queries-for-predictable-fallback">Design queries for predictable fallback</a></li>
+    <li class="toc-level-2"><a href="#invalidate-deliberately">Invalidate deliberately</a></li>
+  </ol>
+</aside>
+    <div class="post-body">
+      <p>Backend optimization starts long before a cache is introduced. The best systems make the slow path explicit, keep ownership of data close to the service that changes it, and treat every shortcut as a contract that must be measured in production.</p>
+<h2 id="start-with-the-read-path">Start with the read path</h2>
 <p>When a backend begins to slow down, the first useful question is not &quot;Which cache should we add?&quot; but &quot;Which read path is expensive, repeated, and safe to serve from a secondary store?&quot; A cache is valuable when it removes repeated coordination work without making correctness impossible to explain.</p>
 <blockquote><p>Caching is not a storage strategy. It is a latency strategy with a consistency cost attached to every key.</p></blockquote>
 <p>For a service that loads catalog records, user permissions, and availability signals, the architecture can stay understandable if each layer has a narrow responsibility:</p>
 <ul><li>The controller validates the request shape and forwards intent.</li><li>The service owns cache lookup, fallback, and invalidation policy.</li><li>The repository remains the only component that understands relational query details.</li><li>Observability records cache hit ratio, fallback latency, and stale reads as separate signals.</li></ul>
-<h2>Use cache-aside for explicit control</h2>
+<h2 id="use-cache-aside-for-explicit-control">Use cache-aside for explicit control</h2>
 <p>Cache-aside is still a strong default for many product systems because it keeps failure modes visible. The service asks Redis first, falls back to the source of truth, then writes the computed response with a bounded TTL.</p>
 <div class="code-window">
   <div class="code-toolbar">
@@ -61,7 +68,7 @@
       <span></span>
     </div>
     <span class="code-label">java</span>
-    <button class="copy-button" type="button">Copy</button>
+    <button class="copy-button" type="button" aria-label="Copy code">Copy</button>
   </div>
   <pre><code class="language-java"><span class="token token-keyword">public</span> <span class="token token-keyword">final</span> <span class="token token-keyword">class</span> CatalogQueryService {
   <span class="token token-keyword">private</span> <span class="token token-keyword">final</span> CatalogRepository repository;
@@ -84,7 +91,7 @@
 }</code></pre>
 </div>
 <p>The important detail is not the framework call. It is the boundary: the service can explain why the key exists, how long it can live, and which write path invalidates it.</p>
-<h2>Design queries for predictable fallback</h2>
+<h2 id="design-queries-for-predictable-fallback">Design queries for predictable fallback</h2>
 <p>A cache miss should not turn into a production incident. If fallback queries are predictable, indexed, and shaped for the view they hydrate, misses become normal system behavior rather than emergency load spikes.</p>
 <div class="code-window">
   <div class="code-toolbar">
@@ -94,7 +101,7 @@
       <span></span>
     </div>
     <span class="code-label">sql</span>
-    <button class="copy-button" type="button">Copy</button>
+    <button class="copy-button" type="button" aria-label="Copy code">Copy</button>
   </div>
   <pre><code class="language-sql"><span class="token token-keyword">EXPLAIN</span> <span class="token token-keyword">ANALYZE</span>
 <span class="token token-keyword">SELECT</span>
@@ -110,18 +117,17 @@
 <span class="token token-keyword">LIMIT</span> <span class="token token-number">1</span>;</code></pre>
 </div>
 <p>This query is small enough to reason about, specific enough to index, and close to the shape of the cached response. That keeps the cache from becoming a blanket over a poorly understood data model.</p>
-<h2>Invalidate deliberately</h2>
+<h2 id="invalidate-deliberately">Invalidate deliberately</h2>
 <p>Invalidation works best when it follows domain events instead of generic table changes. A <code>BookUpdated</code> event can remove <code>catalog:view:{isbn}</code> immediately, while a <code>LoanReturned</code> event can update availability keys without touching bibliographic metadata.</p>
 <p>The final architecture should feel boring in the right places: fast common reads, clear fallback behavior, observable cache effectiveness, and no hidden dependency that only one engineer understands.</p>
+    </div>
   </div>
 </article>
   </main>
   <footer class="site-footer">
-    <p>Cache Atlas publishes field notes on backend systems, cache behavior, and durable product engineering.</p>
+    <p>Cache Atlas is a personal notebook for backend systems, technical writing, and useful software projects.</p>
   </footer>
   <script>
-    // Load Netlify Identity on public pages only for invite/confirmation links.
-    // Normal readers should never be redirected into the CMS login flow.
     (() => {
       const hasIdentityToken = /(?:invite_token|confirmation_token|recovery_token|email_change_token)=/.test(window.location.hash);
       if (!hasIdentityToken) return;
@@ -138,7 +144,6 @@
       document.head.appendChild(script);
     })();
 
-    // Copy buttons are intentionally tiny: useful for code-heavy posts without turning the blog into an app.
     document.querySelectorAll(".copy-button").forEach((button) => {
       button.addEventListener("click", async () => {
         const code = button.closest(".code-window")?.querySelector("code")?.textContent || "";

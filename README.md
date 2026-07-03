@@ -51,6 +51,18 @@ tags: Spring Boot, Redis, SQL
 正文内容。
 ```
 
+## 前端结构
+
+这个博客不使用 React/Vue/Next/Astro/Vite，前端由轻量 Node 静态生成器生成：
+
+- `src/site.js`：站点信息、导航、项目和最近更新数据
+- `src/templates.js`：首页、文章列表页、文章详情页等 HTML 模板
+- `src/markdown.js`：front matter、Markdown 渲染、代码高亮和目录锚点
+- `src/styles.css`：前端样式源文件
+- `scripts/build.mjs`：读取内容并生成 `public` 目录
+
+不要直接手改 `public/*.html` 或 `public/assets/styles.css`，这些文件会在 `npm run build` 时重新生成。
+
 ## 一键发布流程
 
 日常写博客可以这样做：
@@ -69,9 +81,16 @@ npm run publish -- "Add new post"
 3. 推送到 GitHub
 4. 触发 GitHub Pages 自动更新
 
+给 agent 看的仓库结构、修改规则和“改代码 -> 推送 GitHub -> 更新 Netlify/GitHub Pages 页面”流程见：
+
+```text
+docs/update-workflow.md
+```
+
 ## 部署文档
 
 - 部署步骤：`docs/deploy-runbook.md`
+- 更新流程：`docs/update-workflow.md`
 - 过程和踩坑：`docs/deploy-log.md`
 - GitHub 托管：`docs/github-hosting.md`
 - Cloudflare 托管：`docs/cloudflare-hosting.md`

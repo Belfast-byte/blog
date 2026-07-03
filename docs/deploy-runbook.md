@@ -38,6 +38,24 @@ npm run build
 /home/dev/blog/public
 ```
 
+## 日常更新 Workflow
+
+代码、样式或文章改完后，推荐使用统一发布流程：
+
+```bash
+cd /home/dev/blog
+npm run build
+npm run publish -- "Update blog"
+```
+
+`npm run publish` 会重新构建、提交 Git commit、推送到 GitHub，并触发 Netlify 和 GitHub Pages 自动部署。
+
+给 agent 看的完整仓库结构和更新流程见：
+
+```text
+docs/update-workflow.md
+```
+
 ## 临时预览
 
 ```bash

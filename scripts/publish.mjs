@@ -29,7 +29,7 @@ if (!hasChanges()) {
   process.exit(0);
 }
 
-run("git", ["add", "content", "public", "static", "docs", "scripts", "package.json", "README.md", "wrangler.toml", "netlify.toml", ".github"]);
+run("git", ["add", "content", "public", "static", "src", "docs", "scripts", "package.json", "README.md", "wrangler.toml", "netlify.toml", ".github"]);
 
 if (!hasChanges()) {
   console.log("No staged changes to publish.");
