@@ -1,0 +1,5 @@
+name = "personal-blog"
+pages_build_output_dir = "public"
+
+[vars]
+BASE_PATH = "/"

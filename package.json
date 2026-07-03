@@ -1,0 +1,11 @@
+{
+  "name": "personal-blog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "deploy:cloudflare": "npm run build && npx wrangler pages deploy public --project-name personal-blog",
+    "serve": "node scripts/serve.mjs"
+  }
+}
