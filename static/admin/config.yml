@@ -31,6 +31,11 @@ collections:
       - label: 摘要
         name: description
         widget: text
+      - label: 标签
+        name: tags
+        widget: string
+        required: false
+        hint: 使用英文逗号分隔，例如 Spring Boot, Redis, SQL
       - label: 正文
         name: body
         widget: markdown

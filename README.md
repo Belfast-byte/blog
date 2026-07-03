@@ -1,6 +1,6 @@
-# 我的博客
+# Cache Atlas
 
-这是一个部署在 `/home/dev/blog` 的静态博客项目。
+这是一个部署在 `/home/dev/blog` 的静态博客项目，前端采用高质感浅色主题，面向后端架构、缓存策略和生产系统设计文章。
 
 ## 常用命令
 
@@ -45,6 +45,7 @@ https://noshiro.netlify.app/admin/
 title: 文章标题
 date: 2026-07-03
 description: 文章摘要
+tags: Spring Boot, Redis, SQL
 ---
 
 正文内容。

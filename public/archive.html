@@ -1,33 +1,62 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="博客文章归档">
-  <title>归档 - 我的博客</title>
+  <meta name="description" content="All Cache Atlas articles and backend engineering field notes.">
+  <title>Articles - Cache Atlas</title>
+  <!-- Editorial type stack: Lora for headings, Inter for body, JetBrains Mono for code. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/styles.css">
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
-<body>
+<body class="archive-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
-    <a class="brand" href="/">我的博客</a>
-    <nav>
-      <a href="/">首页</a>
-      <a href="/archive.html">归档</a>
+  <!-- Sticky frosted navigation keeps the editorial frame visible while reading. -->
+  <div class="nav-shell">
+    <a class="brand" href="/" aria-label="Cache Atlas home">
+      <span class="brand-mark" aria-hidden="true">CA</span>
+      <span>Cache Atlas</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="/">Home</a>
+      <a href="/#projects">Projects</a>
+      <a href="/#articles">Articles</a>
+      <a href="/#about">About</a>
     </nav>
-  </header>
-  <main class="container">
-    <h1>归档</h1>
-<section class="archive">
+  </div>
+</header>
+  <main id="main-content">
+    <section class="archive-hero" aria-labelledby="archive-title">
+  <p class="eyebrow">Articles</p>
+  <h1 id="archive-title">All field notes.</h1>
+  <p>Essays, implementation notes, and production architecture references in reverse chronological order.</p>
+</section>
+<section class="archive-grid" aria-label="Article archive">
   <article class="post-card">
-  <time datetime="2026-07-03">2026-07-03</time>
-  <h2><a href="/posts/hello.html">第一篇博客</a></h2>
-  <p>这个博客已经可以在服务器上构建和部署。</p>
+  <div class="card-kicker">
+    <time datetime="2026-07-03">July 3, 2026</time>
+    <span>2 min read</span>
+  </div>
+  <h3><a href="/posts/backend-architecture-caching.html">Optimizing Backend Architecture and Caching Strategies</a></h3>
+  <p>A practical guide to using cache-aside patterns, read models, and bounded invalidation without hiding system complexity.</p>
+  <ul class="tag-list" aria-label="Tags">
+  <li>Spring Boot</li>
+  <li>Redis</li>
+  <li>SQL</li>
+  <li>Architecture</li>
+</ul>
 </article>
 </section>
   </main>
-  <footer class="site-footer">Built as a static blog.</footer>
+  <footer class="site-footer">
+    <p>Cache Atlas publishes field notes on backend systems, cache behavior, and durable product engineering.</p>
+  </footer>
   <script>
+    // Keep Netlify Identity behavior for deployments that use the bundled CMS.
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", (user) => {
         const hasIdentityToken = /(?:invite_token|confirmation_token|recovery_token|email_change_token)=/.test(window.location.hash);
@@ -39,6 +68,22 @@
         });
       });
     }
+
+    // Copy buttons are intentionally tiny: useful for code-heavy posts without turning the blog into an app.
+    document.querySelectorAll(".copy-button").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const code = button.closest(".code-window")?.querySelector("code")?.textContent || "";
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = "Copied";
+          window.setTimeout(() => {
+            button.textContent = "Copy";
+          }, 1600);
+        } catch {
+          button.textContent = "Select";
+        }
+      });
+    });
   </script>
 </body>
 </html>

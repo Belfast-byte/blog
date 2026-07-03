@@ -27,6 +27,7 @@ const content = `---
 title: ${title}
 date: ${today}
 description: 这里写文章摘要
+tags: Architecture
 ---
 
 这里开始写正文。
