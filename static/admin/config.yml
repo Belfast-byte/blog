@@ -1,0 +1,39 @@
+backend:
+  name: github
+  repo: Belfast-byte/blog
+  branch: main
+  base_url: https://belfast-byte.github.io/blog
+
+site_url: https://belfast-byte.github.io/blog/
+display_url: https://belfast-byte.github.io/blog/
+logo_url: https://belfast-byte.github.io/blog/
+publish_mode: editorial_workflow
+
+media_folder: public/uploads
+public_folder: /blog/uploads
+
+collections:
+  - name: posts
+    label: 文章
+    label_singular: 文章
+    folder: content/posts
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - label: 标题
+        name: title
+        widget: string
+      - label: 发布日期
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+      - label: 摘要
+        name: description
+        widget: text
+      - label: 正文
+        name: body
+        widget: markdown
