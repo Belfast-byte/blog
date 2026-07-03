@@ -66,7 +66,7 @@ content/posts
 完成后，访问 Netlify 域名下的后台：
 
 ```text
-https://你的站点名.netlify.app/admin/
+https://noshiro.netlify.app/admin/
 ```
 
 使用被邀请的邮箱登录后，就可以在网页里新建、编辑和发布文章。

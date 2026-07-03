@@ -2,8 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
-site_url: /
-display_url: /
+site_url: https://noshiro.netlify.app/
+display_url: https://noshiro.netlify.app/
 publish_mode: editorial_workflow
 
 media_folder: public/uploads

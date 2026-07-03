@@ -31,7 +31,7 @@ PORT=3000 npm run serve
 在线后台：
 
 ```text
-https://你的站点名.netlify.app/admin/
+https://noshiro.netlify.app/admin/
 ```
 
 后台使用 Netlify Identity + Git Gateway 登录写文章。GitHub Pages 上的 `/admin/` 只能加载静态后台，不能处理 Netlify 登录。
