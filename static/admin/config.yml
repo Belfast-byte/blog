@@ -1,16 +1,13 @@
 backend:
-  name: github
-  repo: Belfast-byte/blog
+  name: git-gateway
   branch: main
-  base_url: https://belfast-byte.github.io/blog
 
-site_url: https://belfast-byte.github.io/blog/
-display_url: https://belfast-byte.github.io/blog/
-logo_url: https://belfast-byte.github.io/blog/
+site_url: /
+display_url: /
 publish_mode: editorial_workflow
 
 media_folder: public/uploads
-public_folder: /blog/uploads
+public_folder: /uploads
 
 collections:
   - name: posts
