@@ -327,7 +327,6 @@ function layout({ title, description, body, pageClass = "" }) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="${assetPath("/assets/styles.css")}">
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body class="${escapeHtml(pageClass)}">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -339,18 +338,23 @@ function layout({ title, description, body, pageClass = "" }) {
     <p>${escapeHtml(site.name)} publishes field notes on backend systems, cache behavior, and durable product engineering.</p>
   </footer>
   <script>
-    // Keep Netlify Identity behavior for deployments that use the bundled CMS.
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", (user) => {
-        const hasIdentityToken = /(?:invite_token|confirmation_token|recovery_token|email_change_token)=/.test(window.location.hash);
-        if (!user && hasIdentityToken) {
-          window.netlifyIdentity.open();
-        }
+    // Load Netlify Identity on public pages only for invite/confirmation links.
+    // Normal readers should never be redirected into the CMS login flow.
+    (() => {
+      const hasIdentityToken = /(?:invite_token|confirmation_token|recovery_token|email_change_token)=/.test(window.location.hash);
+      if (!hasIdentityToken) return;
+
+      const script = document.createElement("script");
+      script.src = "https://identity.netlify.com/v1/netlify-identity-widget.js";
+      script.onload = () => {
+        if (!window.netlifyIdentity) return;
         window.netlifyIdentity.on("login", () => {
           document.location.href = "${assetPath("/admin/")}";
         });
-      });
-    }
+        window.netlifyIdentity.open();
+      };
+      document.head.appendChild(script);
+    })();
 
     // Copy buttons are intentionally tiny: useful for code-heavy posts without turning the blog into an app.
     document.querySelectorAll(".copy-button").forEach((button) => {
